@@ -14,7 +14,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <body className="bg-[var(--color-background)] text-[var(--color-text)]">
-        <GoogleOAuthProvider clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? ''}>
+        <GoogleOAuthProvider clientId={process.env.GOOGLE_CLIENT_ID ?? ''}>
           <AuthInitializer />
           <div className="h-screen overflow-hidden flex flex-col">
             <HeaderNav />

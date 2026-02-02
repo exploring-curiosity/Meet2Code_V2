@@ -35,8 +35,6 @@ Define the following in `.env.local` (values shown are typical defaults):
 NEXT_PUBLIC_BACKEND_URL=http://localhost:9000
 NEXT_PUBLIC_YJS_URL=ws://localhost:1234/yjs
 NEXT_PUBLIC_PEER_URL=http://localhost:8080/ws
-NEXT_PUBLIC_GOOGLE_CLIENT_ID=<google-client-id>
-NEXT_PUBLIC_GITHUB_CLIENT_ID=<github-client-id>
 ```
 
 ## Key routes

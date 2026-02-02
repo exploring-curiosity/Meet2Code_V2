@@ -5,24 +5,18 @@ services:
     build: ./backend
     ports:
       - "9000:9000"
+    env_file:
+      - .env
     environment:
       PORT: "9000"
-      POSTGRES_URL: ${POSTGRES_URL}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      MONGODB_URI: ${MONGODB_URI}
-      MONGODB_DATABASE: ${MONGODB_DATABASE}
-      SESSION_SECRET: ${SESSION_SECRET}
-      ALLOWED_ORIGINS: ${ALLOWED_ORIGINS}
-      GITHUB_CLIENT_ID: ${GITHUB_CLIENT_ID}
-      GITHUB_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
-      GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID}
     restart: unless-stopped
 
   yjs:
     build: ./yjs-server
     ports:
       - "1234:1234"
+    env_file:
+      - .env
     environment:
       PORT: "1234"
     restart: unless-stopped
@@ -31,6 +25,8 @@ services:
     build: ./peer-server
     ports:
       - "8080:8080"
+    env_file:
+      - .env
     environment:
       PORT: "8080"
     restart: unless-stopped

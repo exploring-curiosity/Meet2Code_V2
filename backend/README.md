@@ -47,7 +47,7 @@ All sensitive data is externalised. Supply the following variables via your shel
 | `MONGODB_URI` | MongoDB connection string (default `mongodb://localhost:27017/m2c`). |
 | `SESSION_SECRET` | Secret for signing server-side sessions. |
 | `SESSION_COOKIE_NAME` | Cookie name for the session (default `meet2codeSession`). |
-| `GITHUB_CLIENT_ID` / `GITHUB_CLIENT_SECRET` | OAuth credentials carried over from the legacy app. |
+| `M2C_GIT_CLIENT_ID` / `M2C_GIT_CLIENT_SECRET` | OAuth credentials carried over from the legacy app. |
 | `GOOGLE_CLIENT_ID` | Google OAuth client ID carried over from the legacy app (secret not required for token verification flow). |
 | `ALLOWED_ORIGINS` | Comma-separated list of origins permitted for CORS (default `http://localhost:3000`). |
 
