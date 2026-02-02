@@ -1,0 +1,58 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+  application:
+    name: meet2code-backend
+  datasource:
+    url: ${POSTGRES_URL:jdbc:postgresql://localhost:5432/m2c}
+    username: ${POSTGRES_USER:postgres}
+    password: ${POSTGRES_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
+  data:
+    mongodb:
+      uri: ${MONGODB_URI:mongodb://localhost:27017/m2c}
+      database: ${MONGODB_DATABASE:m2c}
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+  cache:
+    type: caffeine
+    cache-names: leetcodeQuestionList,leetcodeProblemDetails
+    caffeine:
+      spec: maximumSize=100,expireAfterWrite=15m
+
+server:
+  port: 9000
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+
+app:
+  session:
+    secret: ${SESSION_SECRET:}
+    cookie-name: ${SESSION_COOKIE_NAME:meet2codeSession}
+  oauth:
+    github:
+      client-id: ${GITHUB_CLIENT_ID:}
+      client-secret: ${GITHUB_CLIENT_SECRET:}
+    google:
+      client-id: ${GOOGLE_CLIENT_ID:}
+  cors:
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:3000}
