@@ -1,19 +1,18 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { Suspense, useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuthStore } from '../../../store/auth';
 
 const backendUrl = process.env.NEXT_PUBLIC_BACKEND_URL ?? 'http://localhost:9000';
 
-export default function GithubCallbackPage() {
+function GithubCallbackContent() {
   const router = useRouter();
   const refresh = useAuthStore((state) => state.refresh);
   const params = useSearchParams();
   const hasRun = useRef(false);
 
   useEffect(() => {
-    // Prevent double execution in React Strict Mode
     if (hasRun.current) return;
     hasRun.current = true;
 
@@ -41,12 +40,25 @@ export default function GithubCallbackPage() {
       console.error('GitHub callback error', error);
       router.replace('/login');
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [params, refresh, router]);
 
   return (
     <div className="flex h-[60vh] items-center justify-center text-slate-300">
       Finalizing GitHub sign-in...
     </div>
+  );
+}
+
+export default function GithubCallbackPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex h-[60vh] items-center justify-center text-slate-300">
+          Loading...
+        </div>
+      }
+    >
+      <GithubCallbackContent />
+    </Suspense>
   );
 }

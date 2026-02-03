@@ -6,7 +6,6 @@ RUN npm install --production
 
 COPY src ./src
 
-ENV PORT=1234
 EXPOSE 1234
 
 CMD ["node", "src/server.js"]

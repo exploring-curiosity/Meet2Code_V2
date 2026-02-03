@@ -17,6 +17,19 @@ export type RoomDetail = {
   participants: Participant[];
 };
 
+export type RoomSummary = {
+  slug: string;
+  name: string;
+  description?: string;
+  type: 'PUBLIC' | 'PRIVATE';
+  participantCount: number;
+  host: {
+    username: string;
+    displayName?: string;
+    avatarUrl?: string;
+  };
+};
+
 export type ChatMessage = {
   id: string;
   authorId?: string;

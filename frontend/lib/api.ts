@@ -4,6 +4,7 @@ import type {
   ChatMessage,
   Contest,
   RoomDetail,
+  RoomSummary,
   LCProblem,
   LeetCodeQuestionListResponse,
   LCTestCase,
@@ -62,7 +63,7 @@ export async function logout(): Promise<void> {
   await request<void>('/api/oauth/logout', { method: 'POST' });
 }
 
-export async function fetchPublicRooms() {
+export async function fetchPublicRooms(): Promise<RoomSummary[]> {
   return request('/api/rooms/public', { method: 'GET' });
 }
 

@@ -14,7 +14,6 @@ RUN apk add --no-cache ca-certificates
 WORKDIR /app
 COPY --from=build /app/peer-server /app/peer-server
 
-ENV PORT=8080
 EXPOSE 8080
 
 CMD ["/app/peer-server"]

@@ -3,20 +3,8 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { createRoom, fetchPublicRooms } from '../../lib/api';
+import type { RoomSummary } from '../../lib/types';
 import { useAuthStore } from '../../store/auth';
-
-type RoomSummary = {
-  slug: string;
-  name: string;
-  description?: string;
-  type: 'PUBLIC' | 'PRIVATE';
-  participantCount: number;
-  host: {
-    username: string;
-    displayName?: string;
-    avatarUrl?: string;
-  };
-};
 
 export default function RoomsPage() {
   const user = useAuthStore((state) => state.user);

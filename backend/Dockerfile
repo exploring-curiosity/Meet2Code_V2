@@ -13,7 +13,6 @@ RUN apt-get update \
 WORKDIR /app
 COPY --from=build /app/target/*.jar /app/app.jar
 
-ENV PORT=9000
 EXPOSE 9000
 
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]
