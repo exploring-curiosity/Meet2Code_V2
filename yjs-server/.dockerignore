@@ -10,3 +10,8 @@ docker-compose.yml
 .gitignore
 .vscode
 coverage
+README.md
+*.md
+tsconfig.json
+**/*.test.js
+**/*.spec.js

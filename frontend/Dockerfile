@@ -1,25 +1,15 @@
-# 1. Install dependencies
-FROM node:20-alpine AS deps
+FROM node:20-alpine AS builder
 WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
-
-# 2. Build the app
-FROM node:20-alpine AS builder
-WORKDIR /app
-COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
 
-# 3. Production runner (VERY small)
-FROM node:20-alpine AS runner
+FROM node:20-alpine
 WORKDIR /app
 ENV NODE_ENV=production
-
-# Copy only what is needed to run
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
 COPY --from=builder /app/public ./public
-
 EXPOSE 3000
 CMD ["node", "server.js"]

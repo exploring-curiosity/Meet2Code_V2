@@ -32,12 +32,12 @@ services:
       PORT: "8080"
     restart: unless-stopped
 
-  frontend:
-    build: ./frontend
-    ports:
-      - "3000:3000"
-    env_file:
-      - .env
-    environment:
-      PORT: "3000"
-    restart: unless-stopped
+  # frontend:
+  #   build: ./frontend
+  #   ports:
+  #     - "3000:3000"
+  #   env_file:
+  #     - .env
+  #   environment:
+  #     PORT: "3000"
+  #   restart: unless-stopped

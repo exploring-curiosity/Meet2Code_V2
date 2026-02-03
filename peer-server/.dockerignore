@@ -9,3 +9,7 @@ docker-compose.yml
 .git
 .gitignore
 .vscode
+README.md
+*.md
+**/*_test.go
+**/testdata

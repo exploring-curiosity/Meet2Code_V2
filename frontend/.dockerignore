@@ -17,3 +17,12 @@ npm-debug.log
 .env
 *.log
 *.tsbuildinfo
+README.md
+*.md
+jest.config.mjs
+jest.setup.ts
+**/*.test.ts
+**/*.test.tsx
+**/*.spec.ts
+**/*.spec.tsx
+.eslintrc.json
