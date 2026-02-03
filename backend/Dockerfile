@@ -5,10 +5,7 @@ COPY pom.xml ./
 COPY src ./src
 RUN mvn -q -DskipTests package
 
-FROM eclipse-temurin:17-jdk-jammy
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends python3 nodejs npm gcc g++ golang-go \
-    && rm -rf /var/lib/apt/lists/*
+FROM eclipse-temurin:17-jre-jammy
 
 WORKDIR /app
 COPY --from=build /app/target/*.jar /app/app.jar

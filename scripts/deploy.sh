@@ -21,6 +21,4 @@ fi
 
 $DOCKER_COMPOSE up -d --build
 
-if [ "${LOW_DISK_PRUNE:-0}" = "1" ]; then
-  docker image prune -f
-fi
+docker image prune -f

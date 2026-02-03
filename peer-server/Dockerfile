@@ -6,10 +6,9 @@ RUN go mod download
 
 COPY cmd ./cmd
 COPY internal ./internal
-RUN go build -o /app/peer-server ./cmd/server
+RUN CGO_ENABLED=0 go build -ldflags="-s -w" -o /app/peer-server ./cmd/server
 
-FROM alpine:3.20
-RUN apk add --no-cache ca-certificates
+FROM scratch
 
 WORKDIR /app
 COPY --from=build /app/peer-server /app/peer-server

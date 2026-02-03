@@ -1,0 +1,14 @@
+target
+.mvn
+*.iml
+.idea
+.vscode
+.gradle
+node_modules
+npm-debug.log
+*.log
+.DS_Store
+.env
+.env.*
+Dockerfile
+docker-compose.yml
