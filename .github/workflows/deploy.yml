@@ -35,8 +35,17 @@ jobs:
             git fetch --all
             git reset --hard origin/main
 
-            cat > .env << 'EOF'
-            POSTGRES_URL=${{ secrets.POSTGRES_URL }}
+            POSTGRES_URL_RAW="${{ secrets.POSTGRES_URL }}"
+            if [[ "$POSTGRES_URL_RAW" == *"preferQueryMode=simple"* ]]; then
+              POSTGRES_URL="$POSTGRES_URL_RAW"
+            elif [[ "$POSTGRES_URL_RAW" == *"?"* ]]; then
+              POSTGRES_URL="${POSTGRES_URL_RAW}&preferQueryMode=simple"
+            else
+              POSTGRES_URL="${POSTGRES_URL_RAW}?preferQueryMode=simple"
+            fi
+
+            cat > .env << EOF
+            POSTGRES_URL=${POSTGRES_URL}
             POSTGRES_USER=${{ secrets.POSTGRES_USER }}
             POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
             MONGODB_URI=${{ secrets.MONGODB_URI }}
