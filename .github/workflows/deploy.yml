@@ -35,7 +35,7 @@ jobs:
             MONGODB_DATABASE=${{ secrets.MONGODB_DATABASE }}
             SESSION_SECRET=${{ secrets.SESSION_SECRET }}
             SESSION_COOKIE_NAME=${{ vars.SESSION_COOKIE_NAME }}
-            ALLOWED_ORIGINS=${{ vars.ALLOWED_ORIGINS }}
+            ALLOWED_ORIGINS=${{ vars.ALLOWED_ORIGINS || 'https://meet2code.exploring-curiosity.com' }}
             M2C_GIT_CLIENT_ID=${{ secrets.M2C_GIT_CLIENT_ID }}
             M2C_GIT_CLIENT_SECRET=${{ secrets.M2C_GIT_CLIENT_SECRET }}
             GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
