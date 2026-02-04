@@ -11,6 +11,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Build images
+        run: |
+          docker build -t m2c_v2-backend:latest ./backend
+          docker build -t m2c_v2-yjs:latest ./yjs-server
+          docker build -t m2c_v2-peer:latest ./peer-server
+          docker save m2c_v2-backend:latest m2c_v2-yjs:latest m2c_v2-peer:latest -o m2c_images.tar
+
       - name: Prepare repo and env
         uses: appleboy/ssh-action@v1.0.0
         with:
@@ -39,47 +46,17 @@ jobs:
             M2C_GIT_CLIENT_ID=${{ secrets.M2C_GIT_CLIENT_ID }}
             M2C_GIT_CLIENT_SECRET=${{ secrets.M2C_GIT_CLIENT_SECRET }}
             GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}
-            NEXT_PUBLIC_BACKEND_URL=${{ vars.NEXT_PUBLIC_BACKEND_URL }}
-            NEXT_PUBLIC_YJS_URL=${{ vars.NEXT_PUBLIC_YJS_URL }}
-            NEXT_PUBLIC_PEER_URL=${{ vars.NEXT_PUBLIC_PEER_URL }}
             WS_PATH=${{ vars.WS_PATH }}
             EOF
 
-      - name: Build backend
-        uses: appleboy/ssh-action@v1.0.0
+      - name: Upload images to VM
+        uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.GCP_HOST }}
           username: ${{ secrets.GCP_SSH_USER }}
           key: ${{ secrets.GCP_SSH_KEY }}
-          command_timeout: 30m
-          script: |
-            set -e
-            cd "$HOME/Meet2Code_V2"
-            docker-compose build backend
-
-      - name: Build yjs
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.GCP_HOST }}
-          username: ${{ secrets.GCP_SSH_USER }}
-          key: ${{ secrets.GCP_SSH_KEY }}
-          command_timeout: 30m
-          script: |
-            set -e
-            cd "$HOME/Meet2Code_V2"
-            docker-compose build yjs
-
-      - name: Build peer
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.GCP_HOST }}
-          username: ${{ secrets.GCP_SSH_USER }}
-          key: ${{ secrets.GCP_SSH_KEY }}
-          command_timeout: 30m
-          script: |
-            set -e
-            cd "$HOME/Meet2Code_V2"
-            docker-compose build peer
+          source: m2c_images.tar
+          target: $HOME/Meet2Code_V2
 
       # - name: Build frontend
       #   uses: appleboy/ssh-action@v1.0.0
@@ -103,5 +80,6 @@ jobs:
           script: |
             set -e
             cd "$HOME/Meet2Code_V2"
-            docker-compose up -d
+            docker load -i m2c_images.tar
+            docker-compose up -d --no-build
             docker image prune -f

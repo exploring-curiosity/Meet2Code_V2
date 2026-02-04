@@ -28,6 +28,7 @@ public class WebConfig implements WebMvcConfigurer {
         config.setAllowCredentials(true);
         String[] allowedOrigins = appProperties.getCors().getAllowedOrigins();
         List<String> origins = allowedOrigins != null ? List.of(allowedOrigins) : List.of();
+        System.out.println("CORS origins: " + origins);
         config.setAllowedOrigins(origins);
         config.setAllowedHeaders(List.of("*"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));

@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   backend:
-    build: ./backend
+    image: m2c_v2-backend:latest
     ports:
       - "9000:9000"
     env_file:
@@ -13,7 +13,7 @@ services:
     restart: unless-stopped
 
   yjs:
-    build: ./yjs-server
+    image: m2c_v2-yjs:latest
     ports:
       - "1234:1234"
     env_file:
@@ -23,7 +23,7 @@ services:
     restart: unless-stopped
 
   peer:
-    build: ./peer-server
+    image: m2c_v2-peer:latest
     ports:
       - "8080:8080"
     env_file:
