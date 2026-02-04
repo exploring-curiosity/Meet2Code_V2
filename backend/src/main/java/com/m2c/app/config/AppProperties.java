@@ -8,14 +8,18 @@ public class AppProperties {
 
     private final OAuth oauth = new OAuth();
 
+    private final Cors cors = new Cors();
+
     private String sessionSecret;
 
     private String sessionCookieName;
 
-    private String[] corsAllowedOrigins;
-
     public OAuth getOauth() {
         return oauth;
+    }
+
+    public Cors getCors() {
+        return cors;
     }
 
     public String getSessionSecret() {
@@ -34,12 +38,16 @@ public class AppProperties {
         this.sessionCookieName = sessionCookieName;
     }
 
-    public String[] getCorsAllowedOrigins() {
-        return corsAllowedOrigins;
-    }
+    public static class Cors {
+        private String[] allowedOrigins;
 
-    public void setCorsAllowedOrigins(String[] corsAllowedOrigins) {
-        this.corsAllowedOrigins = corsAllowedOrigins;
+        public String[] getAllowedOrigins() {
+            return allowedOrigins;
+        }
+
+        public void setAllowedOrigins(String[] allowedOrigins) {
+            this.allowedOrigins = allowedOrigins;
+        }
     }
 
     public static class OAuth {

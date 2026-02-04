@@ -117,7 +117,7 @@ public class RoomController {
                         "event", "LEFT",
                         "userId", user.getId().toString()
                 ));
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{slug}")
