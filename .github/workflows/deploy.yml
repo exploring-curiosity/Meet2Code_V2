@@ -55,7 +55,7 @@ jobs:
           script: |
             set -e
             cd "$HOME/Meet2Code_V2"
-            docker compose build backend
+            docker-compose build backend
 
       - name: Build yjs
         uses: appleboy/ssh-action@v1.0.0
@@ -67,7 +67,7 @@ jobs:
           script: |
             set -e
             cd "$HOME/Meet2Code_V2"
-            docker compose build yjs
+            docker-compose build yjs
 
       - name: Build peer
         uses: appleboy/ssh-action@v1.0.0
@@ -79,19 +79,19 @@ jobs:
           script: |
             set -e
             cd "$HOME/Meet2Code_V2"
-            docker compose build peer
+            docker-compose build peer
 
-      - name: Build frontend
-        uses: appleboy/ssh-action@v1.0.0
-        with:
-          host: ${{ secrets.GCP_HOST }}
-          username: ${{ secrets.GCP_SSH_USER }}
-          key: ${{ secrets.GCP_SSH_KEY }}
-          command_timeout: 30m
-          script: |
-            set -e
-            cd "$HOME/Meet2Code_V2"
-            docker compose build frontend
+      # - name: Build frontend
+      #   uses: appleboy/ssh-action@v1.0.0
+      #   with:
+      #     host: ${{ secrets.GCP_HOST }}
+      #     username: ${{ secrets.GCP_SSH_USER }}
+      #     key: ${{ secrets.GCP_SSH_KEY }}
+      #     command_timeout: 30m
+      #     script: |
+      #       set -e
+      #       cd "$HOME/Meet2Code_V2"
+      #       docker-compose build frontend
 
       - name: Restart services
         uses: appleboy/ssh-action@v1.0.0
@@ -103,5 +103,5 @@ jobs:
           script: |
             set -e
             cd "$HOME/Meet2Code_V2"
-            docker compose up -d
+            docker-compose up -d
             docker image prune -f
