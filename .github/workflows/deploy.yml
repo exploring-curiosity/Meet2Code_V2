@@ -17,6 +17,7 @@ jobs:
           docker build -t m2c_v2-yjs:latest ./yjs-server
           docker build -t m2c_v2-peer:latest ./peer-server
           docker save m2c_v2-backend:latest m2c_v2-yjs:latest m2c_v2-peer:latest -o m2c_images.tar
+          chmod 644 m2c_images.tar
 
       - name: Prepare repo and env
         uses: appleboy/ssh-action@v1.0.0
