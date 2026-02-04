@@ -82,5 +82,6 @@ jobs:
             set -e
             cd "$HOME/Meet2Code_V2"
             docker load -i m2c_images.tar
+            docker-compose down
             docker-compose up -d --no-build
             docker image prune -f
