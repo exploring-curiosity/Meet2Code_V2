@@ -151,7 +151,7 @@ public class RoomService {
 
     private boolean passwordMatches(Room room, String rawPassword) {
         if (!StringUtils.hasText(room.getPasswordHash())) {
-            return false;
+            return true;
         }
         return passwordEncoder.matches(rawPassword, room.getPasswordHash());
     }
