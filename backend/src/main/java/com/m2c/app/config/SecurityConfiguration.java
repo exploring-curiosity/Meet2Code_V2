@@ -40,7 +40,22 @@ public class SecurityConfiguration {
                         .requestMatchers(PUBLIC_ENDPOINTS).permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/rooms/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/execute").permitAll()
-                        .anyRequest().permitAll() // Temporarily allow all for development
+                        .requestMatchers(HttpMethod.POST, "/api/rooms/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/rooms/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/rooms/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/contests/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/contests/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/contests/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/documents/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/documents/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/documents/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/whiteboard/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/whiteboard/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/whiteboard/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/oauth/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/oauth/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/oauth/**").authenticated()
+                        .anyRequest().authenticated()
                 )
                 .logout(logout -> logout.logoutUrl("/api/oauth/logout").permitAll());
         return http.build();
